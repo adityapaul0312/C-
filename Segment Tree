@@ -1,0 +1,33 @@
+struct DSU{
+    vector<ll> parent, size;
+    // constructor
+    DSU(ll n){
+        parent.resize(n+1);
+        size.resize(n+1,1);
+        // make andar hi daal de
+        for(ll i=1; i<n+1;i++){
+            parent[i] = i;
+        }
+    }
+
+    // void make(){
+    //     for(ll i=1; i<n+1;i++){
+    //         parent[i] = i;
+    //     }
+    // }
+    ll find(ll a){      // will give you a node tell me its root
+        if(parent[a]==a) return a;
+        return parent[a]= find(parent[a]);
+    }
+    void Union(ll a, ll b){
+        a = find(a);
+        b = find(b);
+        if(a!=b){
+            //need to unify
+            if(size[a]<size[b]) swap(a, b);
+            parent[b]= a;
+            size[a]+= size[b];
+        }
+    }
+
+};
